@@ -80,12 +80,12 @@ resource "aws_route_table" "pubrt" {
 
 resource "aws_route_table_association" "pubsb01" {
     route_table_id = aws_route_table.pubrt.id
-    subnet_id = aws_subnet.pub-sub01
+    subnet_id = aws_subnet.pub-sub01.id
   
 }
 
 resource "aws_route_table_association" "pubsb02" {
     route_table_id = aws_route_table.pubrt.id
-    subnet_id = aws_subnet.pub-sub02
+    subnet_id = aws_subnet.pub-sub02.id
   
 }
