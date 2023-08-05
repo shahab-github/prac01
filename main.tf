@@ -1,7 +1,7 @@
 resource "aws_instance" "nginx" {
   ami = var.ami
   instance_type = "t2.micro"
-  key_name = "mykey01"
+  key_name = "terraform"
   vpc_security_group_ids = [aws_security_group.mysq.id]
 
   user_data = <<-EOF
