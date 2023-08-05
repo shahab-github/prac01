@@ -66,6 +66,19 @@ resource "aws_route_table" "pubrt" {
     }
 }
 
+# resource "aws_eip" "myeip" {
+#     domain = "vpc"
+# }
+
+# resource "aws_nat_gateway" "myvpc-ng" {
+#   allocation_id = aws_eip.myeip.id
+#   subnet_id = aws_subnet.pub-sub01.id
+
+#   tags = {
+#     "Name" = "myvpc-ng"
+#   }
+# }
+
 # resource "aws_route_table" "prirt" {
 #     vpc_id = aws_vpc.myvpc.id
 #     route {
@@ -81,11 +94,21 @@ resource "aws_route_table" "pubrt" {
 resource "aws_route_table_association" "pubsb01" {
     route_table_id = aws_route_table.pubrt.id
     subnet_id = aws_subnet.pub-sub01.id
-  
+
 }
 
 resource "aws_route_table_association" "pubsb02" {
     route_table_id = aws_route_table.pubrt.id
     subnet_id = aws_subnet.pub-sub02.id
-  
+    
 }
+
+# resource "aws_route_table_association" "prisub01" {
+#     route_table_id = aws_route_table.prirt.id
+#     subnet_id = aws_subnet.pri-sub01.id
+# }
+
+# resource "aws_route_table_association" "prisub02" {
+#     route_table_id = aws_route_table.prirt.id
+#     subnet_id = aws_subnet.pri-sub02.id
+# }
