@@ -10,6 +10,10 @@ resource "aws_instance" "nginx" {
     sudo apt install nginx -y
     sudo systemctl enable nginx
     EOF
+    
+  tags = {
+    "Name" = "webserver"
+  }
 }
 
 resource "aws_security_group" "mysq" {
