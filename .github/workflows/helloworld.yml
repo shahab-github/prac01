@@ -1,0 +1,14 @@
+name: Hello world test
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  hello-world-test:
+    name: Hello world
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Hello world
+      run: |
+       echo "Hello world"
