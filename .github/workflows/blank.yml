@@ -33,4 +33,4 @@ jobs:
         python .github/scripts/delete_stale_branch.py
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        ORG_NAME: your_organization_name
+        ORG_NAME: shahab-github
