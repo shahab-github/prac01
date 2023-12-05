@@ -1,0 +1,56 @@
+name: Publish Docker Image
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1  
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: user/app:latest
+        
+  publish:
+
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:   
+    - name: Login to JFrog
+      uses: docker/login-action@v1
+      with: 
+        registry: ${{ secrets.JFROG_HOSTNAME }}
+        username: ${{ secrets.JFROG_USERNAME }}  
+        password: ${{ secrets.JFROG_PASSWORD }}
+    
+    - name: Pull from Docker Hub  
+      run: |
+        docker pull user/app:latest
+        
+    - name: Tag image
+      run: | 
+        docker tag user/app:latest ${{ secrets.JFROG_HOSTNAME }}/docker-local/user/app:latest
+    
+    - name: Push to JFrog
+      run: |
+        docker push ${{ secrets.JFROG_HOSTNAME }}/docker-local/user/app:latest
